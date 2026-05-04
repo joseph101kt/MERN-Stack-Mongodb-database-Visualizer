@@ -148,3 +148,34 @@ export const deleteProductField = async (req: Request, res: Response): Promise<v
     res.status(400).json({ success: false, message });
   }
 };
+
+// @desc    Add a review to a product
+// @route   POST /api/v1/products/:id/reviews
+export const addProductReview = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { rating, comment } = req.body;
+
+    const newReview = {
+      user: "Anonymous",
+      rating: Number(rating) || 5,
+      comment,
+      date: new Date()
+    };
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $push: { reviews: newReview } },
+      { returnDocument: 'after', runValidators: true }
+    );
+
+    if (!product) {
+      res.status(404).json({ success: false, message: 'Product not found' });
+      return;
+    }
+
+    res.status(201).json({ success: true, data: product.reviews });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Error adding review";
+    res.status(400).json({ success: false, message });
+  }
+};

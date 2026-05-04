@@ -1,6 +1,7 @@
 import express from 'express';
 import { getProducts,createProduct, getProduct, updateProduct, deleteProduct,
-  updateProductField, deleteProductField } from '../controllers/productController.js';
+  updateProductField, deleteProductField, 
+  addProductReview} from '../controllers/productController.js';
 
 const router = express.Router();
 
@@ -19,5 +20,9 @@ router.route('/:id')
 router.route('/:id/field')
   .patch(updateProductField)
   .delete(deleteProductField);
+  
+
+// Path: /api/v1/products/:id/reviews
+router.route('/:id/reviews').post(addProductReview);
 
 export default router;
