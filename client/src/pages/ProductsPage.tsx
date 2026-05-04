@@ -4,6 +4,8 @@ import ProductCard from '../components/ui/ProductCard';
 import SkeletonCard from '../components/ui/SkeletonCard';
 import { Search, Filter, X, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import Fuse from 'fuse.js';
+import AdminControls from '../components/admin/AdminControls';
+import ProductForm from '../components/admin/ProductForm';
 
 interface ProductsPageProps {
   isAdminPage?: boolean;
@@ -11,6 +13,7 @@ interface ProductsPageProps {
 
 export default function ProductsPage({ isAdminPage = false }: ProductsPageProps) {
   const { data: products, isLoading, error } = useProducts();
+	const [editingId, setEditingId] = useState<string | null>(null);
   
   // --- STATE ---
   const [searchQuery, setSearchQuery] = useState('');
@@ -166,8 +169,12 @@ export default function ProductsPage({ isAdminPage = false }: ProductsPageProps)
             ) : (
               paginatedProducts.map((product) => (
                 <ProductCard key={product._id} product={product}>
-                  {/* TODO: If isAdminPage, pass Edit and Delete button components here */}
-                  {/* <AdminControls id={product._id} /> */}
+								{isAdminPage && (
+									<AdminControls 
+										id={product._id} 
+										onEdit={(id) => setEditingId(id)} 
+									/>
+								)}
                 </ProductCard>
               ))
             )}
@@ -197,6 +204,27 @@ export default function ProductsPage({ isAdminPage = false }: ProductsPageProps)
           </div>
         )}
       </div>
+			{/* Edit Popup Overlay */}
+      {editingId && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+          <div className="relative w-full max-w-4xl bg-depth-surface border border-white/10 rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button 
+              onClick={() => setEditingId(null)}
+              className="absolute top-6 right-6 p-2 text-white/40 hover:text-white transition-colors"
+            >
+              <X size={24} />
+            </button>
+            
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold">Edit Product</h2>
+              <p className="text-white/40 text-sm font-mono uppercase tracking-widest">System Override / {editingId}</p>
+            </div>
+
+            {/* Re-using the self-contained form we built */}
+            <ProductForm productId={editingId} />
+          </div>
+        </div>
+      )}
     </main>
   );
 }

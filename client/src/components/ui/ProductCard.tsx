@@ -14,7 +14,7 @@ export default function ProductCard({ product, children }: ProductCardProps) {
     <div className="bg-depth-surface border border-white/5 rounded-xl overflow-hidden hover:border-white/10 transition-all group shadow-glass flex flex-col h-full relative">
       
       {/* Action Layer for Children (Admin Buttons) */}
-      <div className="absolute top-2 right-2 z-10 flex gap-2">
+      <div className="absolute bottom-2 right-2 z-10 flex gap-2">
         {children}
       </div>
 
