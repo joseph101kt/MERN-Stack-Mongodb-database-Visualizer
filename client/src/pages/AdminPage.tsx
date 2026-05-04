@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Database, PlusCircle, LayoutGrid, X } from 'lucide-react';
 import ProductForm from '../components/admin/ProductForm';
 import ProductsPage from './ProductsPage'; // Use existing page as a component
-import { IProduct } from '../types/product';
+import JsonVisualizerPage from './JsonVisualizerPage';
 
 type AdminView = 'visualizer' | 'create' | 'update';
 
@@ -14,11 +14,6 @@ export default function AdminPage() {
     <div className="flex min-h-screen bg-depth-base text-white">
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/10 bg-depth-surface p-6 flex flex-col gap-8">
-        <div className="px-2">
-          <h2 className="text-xl font-black tracking-tighter text-accent italic">ADMIN_CORE</h2>
-          <p className="text-[10px] text-white/30 font-mono">v2.0.4-stable</p>
-        </div>
-
         <nav className="flex flex-col gap-2">
           <SidebarButton 
             icon={<Database size={18} />} 
@@ -45,10 +40,7 @@ export default function AdminPage() {
       <main className="flex-1 p-10 overflow-y-auto">
         {activeView === 'visualizer' && (
           <div className="h-full flex items-center justify-center border-2 border-dashed border-white/5 rounded-3xl">
-            <div className="text-center">
-              <Database size={48} className="mx-auto mb-4 text-white/10" />
-              <p className="text-white/40 font-mono text-sm uppercase tracking-widest">Recursive Visualizer Initialization...</p>
-            </div>
+            <JsonVisualizerPage/>
           </div>
         )}
 

@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(morgan('dev'));
 
 // 4. Routes
 app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
 // Health Check Route
 app.get('/', (_req: Request, res: Response) => {
