@@ -90,3 +90,61 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
     res.status(400).json({ success: false, message });
   }
 };
+
+// @desc    Update a specific field using dot notation
+// @route   PATCH /api/v1/products/:id/field
+export const updateProductField = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { path, value } = req.body;
+
+    if (!path) {
+      res.status(400).json({ success: false, message: 'Path is required' });
+      return;
+    }
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $set: { [path]: value } }, // Uses dot notation to reach nested fields
+      { new: true, runValidators: true }
+    );
+
+    if (!product) {
+      res.status(404).json({ success: false, message: 'Product not found' });
+      return;
+    }
+
+    res.status(200).json({ success: true, data: product });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Error updating field";
+    res.status(400).json({ success: false, message });
+  }
+};
+
+// @desc    Remove a specific field using dot notation
+// @route   DELETE /api/v1/products/:id/field
+export const deleteProductField = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { path } = req.body;
+
+    if (!path) {
+      res.status(400).json({ success: false, message: 'Path is required' });
+      return;
+    }
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $unset: { [path]: "" } }, // Removes the field entirely
+      { new: true }
+    );
+
+    if (!product) {
+      res.status(404).json({ success: false, message: 'Product not found' });
+      return;
+    }
+
+    res.status(200).json({ success: true, data: product });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Error deleting field";
+    res.status(400).json({ success: false, message });
+  }
+};

@@ -1,5 +1,6 @@
 import express from 'express';
-import { getProducts,createProduct, getProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { getProducts,createProduct, getProduct, updateProduct, deleteProduct,
+  updateProductField, deleteProductField } from '../controllers/productController.js';
 
 const router = express.Router();
 
@@ -13,5 +14,10 @@ router.route('/:id')
   .get(getProduct)
   .patch(updateProduct)
   .delete(deleteProduct);
+
+  // Path: /api/v1/products/:id/field
+router.route('/:id/field')
+  .patch(updateProductField)
+  .delete(deleteProductField);
 
 export default router;
