@@ -39,7 +39,7 @@ export default function AdminPage() {
       {/* Main Content Area */}
       <main className="flex-1 p-10 overflow-y-auto">
         {activeView === 'visualizer' && (
-          <div className="h-full flex items-center justify-center border-2 border-dashed border-white/5 rounded-3xl">
+          <div className="h-full flex  border-2 border-dashed border-white/5 rounded-3xl">
             <JsonVisualizerPage/>
           </div>
         )}
