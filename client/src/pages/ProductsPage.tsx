@@ -90,7 +90,7 @@ export default function ProductsPage({ isAdminPage = false }: ProductsPageProps)
 
   return (
     <main className="min-h-screen bg-depth-base text-white p-6 lg:p-10">
-      <header className="max-w-[1600px] mx-auto mb-10">
+      <header className="max-w-[1600px] mx-auto mb-10 pt-16">
         <h1 className="text-3xl font-semibold mb-6 tracking-tight text-white/90">
           {isAdminPage ? "Inventory Management" : "Visualizer Explorer"}
         </h1>
