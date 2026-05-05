@@ -3,6 +3,8 @@ import Navbar from './components/Navbar'; // Adjust path based on your folder st
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailsPage from './pages/ProductDetailsPage'; 
 import AdminPage from './pages/AdminPage';
+import HomePage from './pages/HomePage';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -12,13 +14,14 @@ function App() {
       
       <main className="">
         <Routes>
-          {/* <Route path="/" element={<HomePage />} /> */} 
+          <Route path="/" element={<HomePage />} />
           
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -70,7 +70,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
             <NavLink 
-              to="/admin?view=visualizer" 
+              to="/admin?view=Database_Visualizer" 
               className={`hidden md:flex items-center gap-2 text-[11px] font-mono border rounded-full px-4 py-1.5 transition
                 ${checkActive('/admin?view=visualizer') ? 'bg-green-500/20 border-green-400 text-green-300' : 'text-green-400 border-green-500/30 hover:bg-green-500/10'}`}
             >
