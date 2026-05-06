@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",        // Where the JS goes
+    "rootDir": "./src",        // WHERE THE TS LIVES (This fixes your error)
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],     // Include everything in src
+  "exclude": ["node_modules"]
+}
