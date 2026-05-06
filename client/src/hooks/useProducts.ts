@@ -11,7 +11,7 @@ export const useProducts = () => {
   return useQuery<IProduct[]>({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/api/v1/products');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products`);
       if (!response.ok) throw new Error('Network response was not ok');
       const json: ApiResponse = await response.json();
       return json.data;

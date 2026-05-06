@@ -31,7 +31,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
   const { data: fetchedProduct, isLoading: isFetching } = useQuery<IProduct>({
     queryKey: ['product', productId],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/api/v1/products/${productId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products/${productId}`);
       const json = await res.json();
       return json.data;
     },
@@ -49,8 +49,8 @@ export default function ProductForm({ productId }: ProductFormProps) {
   const mutation = useMutation({
     mutationFn: async (formData: Partial<IProduct>) => {
       const url = productId 
-        ? `http://localhost:5000/api/v1/products/${productId}` 
-        : `http://localhost:5000/api/v1/products`;
+        ? `${import.meta.env.VITE_API_URL}/api/v1/products/${productId}` 
+        : `${import.meta.env.VITE_API_URL}/api/v1/products`;
       
       const res = await fetch(url, {
         method: productId ? 'PATCH' : 'POST',

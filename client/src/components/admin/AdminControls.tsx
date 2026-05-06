@@ -11,7 +11,7 @@ export default function AdminControls({ id, onEdit }: AdminControlsProps) {
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch(`http://localhost:5000/api/v1/products/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Delete failed');

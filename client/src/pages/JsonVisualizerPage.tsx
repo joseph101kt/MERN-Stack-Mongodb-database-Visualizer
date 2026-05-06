@@ -42,7 +42,7 @@ export default function JsonVisualizerPage() {
   const { data: collections, isLoading } = useQuery<Collection[]>({
     queryKey: ['admin-collections'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/api/v1/admin/collections');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/admin/collections`);
       if (!res.ok) throw new Error('Failed to fetch collections');
       const json = await res.json();
       return json.data ?? [];
@@ -116,7 +116,7 @@ export default function JsonVisualizerPage() {
       // Strip "Database.<Collection>.<ID>." prefix — works for any collection
       const relativePath = path.split('.').slice(3).join('.');
       const res = await fetch(
-        `http://localhost:5000/api/v1/${collection.toLowerCase()}/${id}/field`,
+        `${import.meta.env.VITE_API_URL}/api/v1/${collection.toLowerCase()}/${id}/field`,
         {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
@@ -140,7 +140,7 @@ export default function JsonVisualizerPage() {
     }) => {
       const relativePath = path.split('.').slice(3).join('.');
       const res = await fetch(
-        `http://localhost:5000/api/v1/${collection.toLowerCase()}/${id}/field`,
+        `${import.meta.env.VITE_API_URL}/api/v1/${collection.toLowerCase()}/${id}/field`,
         {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },

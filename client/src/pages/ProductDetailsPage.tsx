@@ -17,7 +17,7 @@ export default function ProductDetailsPage() {
   const { data: product, isLoading, error } = useQuery<IProduct>({
     queryKey: ['product', id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/api/v1/products/${id}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products/${id}`);
       const json = await res.json();
       return json.data;
     }
@@ -36,7 +36,7 @@ export default function ProductDetailsPage() {
 
   const mutation = useMutation({
     mutationFn: async (newReview: { comment: string; rating: number }) => {
-      const res = await fetch(`http://localhost:5000/api/v1/products/${id}/reviews`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products/${id}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newReview),

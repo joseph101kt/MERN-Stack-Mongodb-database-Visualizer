@@ -17,7 +17,19 @@ connectDB();
 
 // 3. Middleware
 app.use(express.json());
-app.use(cors());
+
+// Updated CORS: Allows local dev and your future deployed frontend
+app.use(cors({
+  origin: [
+    'http://localhost:5173', // Vite default
+    'http://localhost:3000', // React default
+    /\.netlify\.app$/,       // Allows any Netlify preview/subdomain
+    /\.vercel\.app$/         // Allows any Vercel preview/subdomain
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT']
+}));
+
 app.use(helmet());
 app.use(morgan('dev'));
 
@@ -34,7 +46,7 @@ app.get('/', (_req: Request, res: Response) => {
   });
 });
 
-// 5. Global Error Handler (Catch-all for typos/errors)
+// 5. Global Error Handler
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
@@ -46,6 +58,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+// Listening on 0.0.0.0 is best practice for cloud providers like Render
+app.listen(Number(PORT), '0.0.0.0', () => {
   console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
